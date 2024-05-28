@@ -8,7 +8,7 @@ data(package = 'palmerpenguins')
 
 #the tidyverse packages
 install.packages("tidyverse")
-library(palmerpenguins)
+library(tidyverse)
 
 #the ggridges package (for ridgeline plots)
 install.packages('ggridges')

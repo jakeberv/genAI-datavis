@@ -1,5 +1,5 @@
 ###
-# R script with exapmles of data vis aided by genAI
+# R script with examples of data vis aided by genAI
 
 # writing your first function in R
 
