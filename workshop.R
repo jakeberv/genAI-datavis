@@ -109,8 +109,8 @@ This structure suggests the dataset is well-suited for statistical analysis or m
 #Step 1 -- clean the data
 
 #Let's assume we don't want to do any kind of missing data estimation and will just want to work with a 'clean' dataset
-#How do we achieve this? 
 
+#How do we achieve this? 
 #Let's write a function that will clean the data set (and any data set) for us.
 
 #prompt for ChatGPT
