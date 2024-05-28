@@ -350,6 +350,7 @@ Input: An R data frame (similar to penguins_cleaned) and user-specified pairs of
 Filtering and Modeling:
 The function will filter the dataset by species.
 For each species, it will fit a linear model to the specified pair of traits (e.g., bill_length_mm and flipper_length_mm).
+
 Plotting:
 Create a scatter plot showing the relationship between the two specified traits for each species.
 Use different colors for each species.
@@ -359,6 +360,7 @@ Here’s the step-by-step plan to achieve this in R:
 Function Definition: Create a function that takes the data frame and two trait names as input arguments.
 Data Filtering: Within the function, filter the data by species.
 Linear Model Fitting: Fit a linear model to the specified traits for each species.
+
 Plotting:
 Generate a scatter plot with different colors for each species.
 Add regression lines to the plot, one for each species."
@@ -410,8 +412,10 @@ plot_trait_relationship_base <- function(data, trait_x, trait_y) {
 # Example usage
 # Assuming penguins_cleaned is already loaded in your environment
 plot_trait_relationship_base(penguins_cleaned, "bill_length_mm", "flipper_length_mm")
-}## this generates a plot but throws an error-- it seems to be related to the linear regressions
-## upon exmaming the code, we see it is likely realted to the model fitting.
+}
+## this generates a plot but throws an error-- it seems to be related to the linear regressions
+
+## upon examining the code, we see it is likely related to the model fitting.
 ## an easy way to troubleshoot this is to directly give GPT the error message and your hypothesis about the error
 
 #GPT prompt:
@@ -423,7 +427,7 @@ Called from: eval(predvars, data, env)
 It looks like the error is occurring in the model fitting, because the initial plotting seems to work correctly. Can you check this section? If you see an error, correct it, otherwise, can you add debug statements to help me troubleshoot?"
 
 ## I am not showing all of the back and forth troubleshooting -- but this is how you would do it.
-## Eventually you end up with a working function
+## Eventually you get a working function
 
 #GPT response:
 plot_trait_relationship_base <- function(data, trait_x, trait_y) {
@@ -470,7 +474,9 @@ plot_trait_relationship_base <- function(data, trait_x, trait_y) {
 plot_trait_relationship_base(penguins_cleaned, "bill_length_mm", "flipper_length_mm")
 
 ## cool this works great
-## The function returns printed model fit objects, but what if we actually want to return these model fits as objects? 
+
+## The function returns printed model fit objects, but what if we actually want to return these model fits as objects?
+
 #Lets ask GPT to "optionally plot" and also return the model fits as a list of objects.
 
 #GPT prompt:
@@ -539,10 +545,14 @@ plot_trait_relationship_base <- function(data, trait_x, trait_y, plot = TRUE) {
 # this will store the model fits as a new object
 model_fits <- plot_trait_relationship_base(penguins_cleaned, "bill_length_mm", "flipper_length_mm", plot = TRUE)
 
-
 }
 
-## ok -- now that this is working, lets say that we want to compare the models fits to see if they are statistically different? Anyone know how to do this?
+model_fits 
+## this object is now useful and contains all of the information about the analysis
+# if you want to share this with a collaborator, you can use saveRDS() !
+
+## OK -- now that this is working, lets say that we want to compare the models fits to see if they are statistically different? 
+# Anyone know how to do this?
 
 ## lets fit a linear model with species as a factor
 
@@ -681,4 +691,188 @@ The model explains a large proportion of the variance in flipper_length_mm, sugg
 ## try another example
 ## cool illustration using ggridges
 
-## Go to data challenges depending on how much time is left
+#Here is another example using ggplot2 and ggridges
+
+#recall the structure of the data set
+str(penguins_cleaned)
+
+#lets say we want to compare the distributions of the different trait values
+#for the different species at the same time? 
+
+# lets look at the ggrdiges examples 
+# https://cran.r-project.org/web/packages/ggridges/vignettes/gallery.html
+
+# maybe we want to duplicate the style of the 'Height of Australian athletes' plot--
+
+# lets try to give chatGPT the example plot, its code, and then ask it to generalize to our data set
+
+#GPT prompt:
+'
+Here is an image of a plot I would like to replicate [paste image]
+
+Here is the code used to generate it:
+{
+ggplot(Aus_athletes, aes(x = height, y = sport, color = sex, point_color = sex, fill = sex)) +
+  geom_density_ridges(
+    jittered_points = TRUE, scale = .95, rel_min_height = .01,
+    point_shape = "|", point_size = 3, size = 0.25,
+    position = position_points_jitter(height = 0)
+  ) +
+  scale_y_discrete(expand = c(0, 0)) +
+  scale_x_continuous(expand = c(0, 0), name = "height [cm]") +
+  scale_fill_manual(values = c("#D55E0050", "#0072B250"), labels = c("female", "male")) +
+scale_color_manual(values = c("#D55E00", "#0072B2"), guide = "none") +
+  scale_discrete_manual("point_color", values = c("#D55E00", "#0072B2"), guide = "none") +
+  coord_cartesian(clip = "off") +
+  guides(fill = guide_legend(
+    override.aes = list(
+      fill = c("#D55E00A0", "#0072B2A0"),
+      color = NA, point_color = NA)
+  )
+  ) +
+  ggtitle("Height in Australian athletes") +
+  theme_ridges(center = TRUE)
+}
+
+I would like to replicate this plotting style for my dataset called penguins_cleaned.
+
+Recall that my data set has this structure:
+> str(penguins_cleaned)
+'data.frame':	333 obs. of  8 variables:
+ $ species          : Factor w/ 3 levels "Adelie","Chinstrap",..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ island           : Factor w/ 3 levels "Biscoe","Dream",..: 3 3 3 3 3 3 3 3 3 3 ...
+ $ bill_length_mm   : num  39.1 39.5 40.3 36.7 39.3 38.9 39.2 41.1 38.6 34.6 ...
+ $ bill_depth_mm    : num  18.7 17.4 18 19.3 20.6 17.8 19.6 17.6 21.2 21.1 ...
+ $ flipper_length_mm: int  181 186 195 193 190 181 195 182 191 198 ...
+ $ body_mass_g      : int  3750 3800 3250 3450 3650 3625 4675 3200 3800 4400 ...
+ $ sex              : Factor w/ 2 levels "female","male": 2 1 1 1 2 1 2 1 2 2 ...
+ $ year             : int  2007 2007 2007 2007 2007 2007 2007 2007 2007 2007 ...
+ - attr(*, "na.action")= 'omit' Named int [1:11] 4 9 10 11 12 48 179 219 257 269 ...
+  ..- attr(*, "names")= chr [1:11] "4" "9" "10" "11" ...
+
+### Your task
+
+For each row, I would like to visualize three density plots, one for each island, and a user-specified trait. The plots represent the values for all species on each island for the specified trait.
+
+The goal is to write a function that wraps around the ggplot code and allows the user to easily generate the described figure.
+
+Study my instructions, and then describe the task step by step. Then wait for further instructions. 
+
+'
+
+# GPT4o output -- after few-shot prompting to clarify the goals.
+
+{
+  require(tidyverse)
+  require(ggridges)  
+  # Function to generate the density ridge plot for a specified trait
+  create_density_ridge_plot <- function(data, trait) {
+    ggplot(data, aes_string(x = trait, y = "island", fill = "island")) +
+      geom_density_ridges(
+        jittered_points = TRUE, scale = .95, rel_min_height = .01,
+        point_shape = "|", point_size = 3, size = 0.25,
+        position = position_points_jitter(height = 0)
+      ) +
+      scale_y_discrete(expand = c(0, 0)) +
+      scale_x_continuous(expand = c(0, 0), name = paste(trait, "[units]")) +
+      scale_fill_manual(values = c("#D55E00", "#0072B2", "#F0E442"), labels = c("Biscoe", "Dream", "Torgersen")) +
+      coord_cartesian(clip = "off") +
+      guides(fill = guide_legend(
+        override.aes = list(
+          fill = c("#D55E00", "#0072B2", "#F0E442"),
+          color = NA, point_color = NA)
+      )) +
+      ggtitle(paste(trait, "Distribution across Islands")) +
+      theme_ridges(center = TRUE)
+  }
+  
+  # Example usage of the function
+  create_density_ridge_plot(penguins_cleaned, "bill_length_mm")
+
+}
+
+
+#ok this is a nice plot, but now, lets parse out the data by species. each row should have a separate distribution for each species
+
+#GPT prompt
+"OK this is good, now, lets parse out the data a bit more. Each row of the plot should have a separate distribution for each species, which we will automatically determine. Here is the prior version of the function:
+[Insert function code]
+
+Can you generate a revised funcion that achieves the stated goal?
+"
+
+#GPT response
+{
+  # Function to generate the density ridge plot for a specified trait
+  create_density_ridge_plot <- function(data, trait) {
+    data$group <- paste(data$island, data$species, sep = " - ")
+    
+    ggplot(data, aes_string(x = trait, y = "group", fill = "species")) +
+      geom_density_ridges(
+        jittered_points = TRUE, scale = .95, rel_min_height = .01,
+        point_shape = "|", point_size = 3, size = 0.25,
+        position = position_points_jitter(height = 0)
+      ) +
+      scale_y_discrete(expand = c(0, 0)) +
+      scale_x_continuous(expand = c(0, 0), name = paste(trait, "[units]")) +
+      coord_cartesian(clip = "off") +
+      guides(fill = guide_legend(
+        override.aes = list(
+          fill = c("#D55E00", "#0072B2", "#F0E442"),
+          color = NA, point_color = NA)
+      )) +
+      ggtitle(paste(trait, "Distribution across Islands and Species")) +
+      theme_ridges(center = TRUE)
+  }
+  
+  # Example usage of the function
+  create_density_ridge_plot(penguins_cleaned, "bill_length_mm")
+  
+}
+
+#This is cool, but the function put the distributions on separate rows-- what if we want the rows to only show islands? Ask for a revised function.
+
+#GPT prompt: 
+"This is close, but not quite what I want -- can you revise the function so that each row represents an island? there can be multiple distributions per row, when there are multiple species on an island. Do you understand?"
+
+#GPT response:
+{
+"I understand now. Each row should represent an island, and within each row, there should be separate distributions for each species on that island. Here's the revised function to achieve this:"
+
+library(ggplot2)
+library(ggridges)
+
+# Load the penguins_cleaned dataset
+#penguins_cleaned <- read.csv("/mnt/data/penguins_cleaned.csv")
+
+# Function to generate the density ridge plot for a specified trait
+create_density_ridge_plot <- function(data, trait) {
+  ggplot(data, aes_string(x = trait, y = "island", fill = "species")) +
+    geom_density_ridges(
+      jittered_points = TRUE, scale = .95, rel_min_height = .01,
+      point_shape = "|", point_size = 3, size = 0.25,
+      position = position_points_jitter(height = 0)
+    ) +
+    scale_y_discrete(expand = c(0, 0)) +
+    scale_x_continuous(expand = c(0, 0), name = paste(trait, "[units]")) +
+    coord_cartesian(clip = "off") +
+    guides(fill = guide_legend(
+      override.aes = list(
+        fill = c("#D55E00", "#0072B2", "#F0E442"),
+        color = NA, point_color = NA)
+    )) +
+    ggtitle(paste(trait, "Distribution across Islands and Species")) +
+    theme_ridges(center = TRUE)
+}
+
+# Example usage of the function
+create_density_ridge_plot(penguins_cleaned, "bill_length_mm")
+
+}
+
+## and so on -- you can see where this is going.
+
+# now we have a customized funtion that does exactly what we want - eg I can easily change the trait to examine
+create_density_ridge_plot(penguins_cleaned, "flipper_length_mm")
+
+## Now go to data challenges depending on how much time is left
