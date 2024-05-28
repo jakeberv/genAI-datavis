@@ -872,7 +872,9 @@ create_density_ridge_plot(penguins_cleaned, "bill_length_mm")
 
 ## and so on -- you can see where this is going.
 
-# now we have a customized funtion that does exactly what we want - eg I can easily change the trait to examine
+# now we have a customized funtion that does exactly what we want - 
+#eg., I can easily change the trait I want to examine
+
 create_density_ridge_plot(penguins_cleaned, "flipper_length_mm")
 
 
