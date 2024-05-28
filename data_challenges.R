@@ -2,6 +2,7 @@
 
 #R has many built in data sets to play with
 data()
+
 # Data sets in package ‘datasets’:
 #   
 # AirPassengers                    Monthly Airline Passenger Numbers 1949-1960
@@ -120,28 +121,29 @@ data()
 ####################################
 
 #Challenges using the mtcars data set
-{
-# Beginner: 
 
+# Beginner: 
+{
 # Fuel Efficiency Analysis:
 #   
 # Challenge: Write a function to visualize the relationship between the number of cylinders (cyl) and miles per gallon (mpg). Provide insights on which cylinder configuration offers the best fuel efficiency.
 # Requirements: The function should create a boxplot or violin plot to show the distribution of mpg for each cyl category.
+}
 
 # Intermediate:
-
+{
 # Correlation Heatmap:
 # 
 # Challenge: Write a function to compute and visualize the correlation matrix of the dataset. Identify which variables are most strongly correlated with each other.
 # Requirements: The function should create a heatmap of the correlation matrix, with appropriate labels and a color legend.
-
+}
+  
 # Advanced:
-
+{
 # Car Performance Segmentation:
 # 
 # Challenge: Write a function or series of functions to classify cars into performance segments based on your choice of the available attributes. Visualize these segments in a scatter plot.
 # Requirements: The function should use clustering (e.g., k-means) to segment the cars and then visualize the clusters in a 2D scatter plot (even if using more than 2 dimensions)
-
 }
 
 #Challenges using the Spotify music data set
@@ -166,21 +168,29 @@ spotify <- read.csv('./supplementary/top10s.csv')
 #spch: Speechiness - The higher the value the more spoken word the song contains.
 #pop: Popularity- The higher the value the more popular the song is.
 
-
+# Beginner:
 {
-  # Beginner:
+#   Energy Levels Across Artists:
+#   
+#   Challenge: Write a function to analyze the energy levels (nrgy) of songs from different artists. Identify which artists consistently produce high-energy songs.
+# Requirements: The function should create a bar plot or boxplot showing the average nrgy for songs by each artist, highlighting those with consistently high energy.
+}
   
-  #   Energy Levels Across Artists:
-  #   
-  #   Challenge: Write a function to analyze the energy levels (nrgy) of songs from different artists. Identify which artists consistently produce high-energy songs.
-  # Requirements: The function should create a bar plot or boxplot showing the average nrgy for songs by each artist, highlighting those with consistently high energy.
-  
-
-  ## come up with more challenges
-  
+# Intermediate:
+{
+#   Genre Popularity Over Time:
+#   
+#   Challenge: Write a function to analyze how the popularity of different genres has changed over the years.
+# Requirements: The function should create a stacked area chart or line plot showing the average popularity of each genre by year, highlighting trends.
 }
 
-
+#Advanced
+{
+# Clustering Songs by Attributes:
+#   
+#   Challenge: Write a function to cluster songs based on their attributes (bpm, nrgy, dnce, dB, live, val, dur, acous, spch, pop) using k-means or hierarchical clustering.
+# Requirements: The function should create a scatter plot or pair plot showing the clusters of songs, and provide insights into the characteristics of each cluster.
+}
 
 
 
