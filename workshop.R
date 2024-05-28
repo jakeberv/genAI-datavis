@@ -875,4 +875,10 @@ create_density_ridge_plot(penguins_cleaned, "bill_length_mm")
 # now we have a customized funtion that does exactly what we want - eg I can easily change the trait to examine
 create_density_ridge_plot(penguins_cleaned, "flipper_length_mm")
 
+
+## one last bonus example
+
+## if you end up writing your own functions, ask GPT to write mermaid code to visualize a flowchart
+## then go to mermaid.live to visualize it!
+
 ## Now go to data challenges depending on how much time is left
