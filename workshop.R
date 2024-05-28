@@ -3,13 +3,7 @@
 
 # writing your first function in R
 
-#see slide
-#FUN <- function(variable){
-#  result<-operation(variable)
-#  return(result)
-#}
-## this function does not do anything
-
+# see slide on functions
 
 ## write a function that prints hello world
 hello <- function() {
@@ -36,9 +30,22 @@ ab(a, b)
 ab(a, 5)
 #multiply each element in a by 5
 
+#we can also write a funciton that takes data as input and generates a plot
+
+## write a function that multiplies a, b
+ab <- function(a, b) {
+  result <- a * b
+  barplot(result)
+}
+
+ab(a, b)
+
 #and so on.
 
-### data exploration with LLM assist
+### data exploration with LLM assist ##
+## the primary goal of today's session is to learn how to write custom plotting functions in R ##
+
+#let's load an example dataset -- the excellent 'palmer penguins' data set
 
 #load the palmerpenguins dataset
 install.packages("palmerpenguins")
@@ -57,7 +64,7 @@ penguins_df <- as.data.frame(penguins)
 #lets say you have received a data set to analyze and visualize -- 
 #First, try providing the LLM a summary of the data structure
 
-#use the structure() function
+#use the structure() function ## -- this is likely one of the most important tricks
 str(penguins_df)
 # > str(penguins_df)
 # 'data.frame':	344 obs. of  8 variables:
