@@ -175,7 +175,7 @@ spotify <- read.csv('./supplementary/top10s.csv')
 #   Challenge: Write a function to analyze the energy levels (nrgy) of songs from different artists. Identify which artists consistently produce high-energy songs.
 # Requirements: The function should create a bar plot or boxplot showing the average nrgy for songs by each artist, highlighting those with consistently high energy.
 }
-  
+
 # Intermediate:
 {
 #   Genre Popularity Over Time:
