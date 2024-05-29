@@ -40,6 +40,8 @@ ab <- function(a, b) {
 
 ab(a, b)
 
+ab(a, b*2)
+
 #and so on.
 
 ### data exploration with LLM assist ##
@@ -412,6 +414,7 @@ plot_trait_relationship_base <- function(data, trait_x, trait_y) {
 # Example usage
 # Assuming penguins_cleaned is already loaded in your environment
 plot_trait_relationship_base(penguins_cleaned, "bill_length_mm", "flipper_length_mm")
+
 }
 ## this generates a plot but throws an error-- it seems to be related to the linear regressions
 
@@ -471,6 +474,7 @@ plot_trait_relationship_base <- function(data, trait_x, trait_y) {
     abline(lm_model, col = species_colors[species], lwd = 2)
   }
 }
+
 plot_trait_relationship_base(penguins_cleaned, "bill_length_mm", "flipper_length_mm")
 
 ## cool this works great
